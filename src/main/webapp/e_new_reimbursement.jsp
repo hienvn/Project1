@@ -70,7 +70,6 @@ body:before {
 						<tr>
 							<th>Amount</th>
 							<th>Description</th>
-							<th>ID_Author</th>
 							<th>Type</th>
 							<th>Receipt</th>
 						</tr>
@@ -79,8 +78,6 @@ body:before {
 								id="inputAmount" placeholder="$0.00" required></td>
 							<td><input type="text" class="form-control" id="inputDesc"
 								name="desc" placeholder="reason" required></td>
-							<td><input type="text" class="form-control" id="inputId"
-								name="id" placeholder="ID" required></td>
 							<td>
 								<select class="form-control" name="type">
 												<option value="1">Travel</option>

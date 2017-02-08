@@ -67,12 +67,12 @@ public class RequestHelper {
 	@SuppressWarnings("unchecked")
 	public String createReimbursement(HttpServletRequest req, HttpServletResponse resp) {
 		System.err.println("[LOG] Processing request with helper : " + req.getRequestURI());
-		// HttpSession session = req.getSession();
-
+		HttpSession session = req.getSession();
+		User u = (User) session.getAttribute("curUser");
 		long r_amount = 0;
 		String r_description = null;
 		byte[] r_receipt = null;
-		long uid_author = 0;
+		long uid_author = u.getUser_id();
 		long r_type_id = 0;
 		if (ServletFileUpload.isMultipartContent(req)) {
 			try {
@@ -88,8 +88,6 @@ public class RequestHelper {
 							r_amount = Long.parseLong(value);
 						if (name.equals("desc"))
 							r_description = value;
-						if (name.equals("id"))
-							uid_author = Long.parseLong(value);
 						if (name.equals("type"))
 							r_type_id = Long.parseLong(value);
 					}

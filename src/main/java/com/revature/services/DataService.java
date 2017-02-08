@@ -12,9 +12,6 @@ import com.revature.database.ERS_DAO;
  * Services are good for transactions
  */
 public class DataService {
-	private final static String url = "jdbc:oracle:thin:@localhost:1521:xe";
-	private final static String username = "PROJECT_1";
-	private final static String password = "p4ssw0rd";
 
 	public static String getStoredPassService(String uname) {
 		return new ERS_DAO().getStoredPass(uname);
