@@ -13,8 +13,8 @@ import com.revature.beans.User;
 
 public class ERS_DAO implements DAO {
 
-	private final static String url = "jdbc:oracle:thin:@localhost:1521:xe";
-	private final static String username = "PROJECT_1";
+	private final static String url = "jdbc:oracle:thin:@hien1701java.c5xsr9dthznr.us-east-1.rds.amazonaws.com:1521:orcl";
+	private final static String username = "hien_1701java";
 	private final static String password = "p4ssw0rd";
 	
 	@Override
