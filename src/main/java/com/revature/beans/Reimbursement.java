@@ -1,16 +1,17 @@
 package com.revature.beans;
 
-import java.sql.Blob;
 import java.sql.Timestamp;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
 
 public class Reimbursement {
 
 	private long r_id;
-	private long r_amount;
+	private double r_amount;
 	private String r_description;
 	private byte[] r_receipt_byte;
-	private Blob r_receipt_blob;
+	//private Blob r_receipt_blob;
 	private String r_receipt_string;
 	private Timestamp r_submitted;
 	private Timestamp r_resolved;
@@ -45,7 +46,7 @@ public class Reimbursement {
 		this.r_status_id = r_status_id;
 	}
 
-	public Reimbursement(long r_id, long r_amount, String r_description, byte[] r_receipt_byte, Timestamp r_submitted,
+	public Reimbursement(long r_id, double r_amount, String r_description, byte[] r_receipt_byte, Timestamp r_submitted,
 			Timestamp r_resolved, long uid_author, long uid_resolver, long r_type_id, long r_status_id, String r_type,
 			String r_status) {
 		super();
@@ -72,11 +73,14 @@ public class Reimbursement {
 		this.r_id = r_id;
 	}
 
-	public long getR_amount() {
+	public double getR_amount() {
 		return r_amount;
 	}
+	public String getR_amount_money() {
+		return NumberFormat.getCurrencyInstance().format(r_amount);
+	}
 
-	public void setR_amount(long r_amount) {
+	public void setR_amount(double r_amount) {
 		this.r_amount = r_amount;
 	}
 
@@ -96,13 +100,13 @@ public class Reimbursement {
 		this.r_receipt_byte = r_receipt_byte;
 	}
 
-	public Blob getR_receipt_blob() {
-		return r_receipt_blob;
-	}
-
-	public void setR_receipt_blob(Blob r_receipt_blob) {
-		this.r_receipt_blob = r_receipt_blob;
-	}
+//	public Blob getR_receipt_blob() {
+//		return r_receipt_blob;
+//	}
+//
+//	public void setR_receipt_blob(Blob r_receipt_blob) {
+//		this.r_receipt_blob = r_receipt_blob;
+//	}
 
 	public String getR_receipt_string() {
 		return this.r_receipt_string;
@@ -112,12 +116,25 @@ public class Reimbursement {
 		this.r_receipt_string = r_receipt_string;
 	}
 
+	public String getR_submitted_string() {
+		if(r_submitted != null)
+			return new SimpleDateFormat("dd/MM/yyyy\nHH:mm").format(r_submitted);
+		else
+			return "";
+	}
 	public Timestamp getR_submitted() {
 		return r_submitted;
 	}
 
 	public void setR_submitted(Timestamp r_submitted) {
 		this.r_submitted = r_submitted;
+	}
+
+	public String getR_resolved_string() {
+		if(r_resolved != null)
+			return new SimpleDateFormat("dd/MM/yyyy\nHH:mm").format(r_resolved);
+		else
+			return "";
 	}
 
 	public Timestamp getR_resolved() {

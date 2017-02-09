@@ -14,37 +14,18 @@
 <head>
 <meta charset="utf-8">
 
-<meta name="viewport"
-	content="width=device-width, shrink-to-fit=no, initial-scale=1">
+<meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
 
-<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<title>Employee Current Reimbursement</title>
+<title>Employee - Current Reimbursements</title>
 
-<!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="css/background.css" rel="stylesheet" type="text/css">
 
 <script src="//code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
 
 </head>
-<style>
-body:before {
-	content: "";
-	position: absolute;
-	background:
-		url(http://s1.picswalls.com/wallpapers/2015/11/21/league-of-legends-hd-wallpapers_111242969_289.jpg);
-	background-size: cover;
-	z-index: -1; /* Keep the background behind the content */
-	height: 100%;
-	width: 100%; /* Using Glen Maddern's trick /via @mente */
-	/* don't forget to use the prefixes you need */
-	transform: scale(1);
-	transform-origin: top left;
-	overflow-y: scroll;
-	filter: blur(2px);
-}
-</style>
 
 <!--****************************************************************Body Pages ****************************************************************-->
 <body>
@@ -56,7 +37,7 @@ body:before {
 			<li><a href="e_reimbursements.jsp"><span class="glyphicon glyphicon-piggy-bank"></span> Current Reimbursement</a></li>
 			<li><a href="e_new_reimbursement.jsp"><span class="glyphicon glyphicon-usd"></span> New Reimbursement</a></li>
 			<li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Tools</span></a>
-			<li><a href="/Project1/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+			<li><a href="/Project11/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 		</ul>
 		</nav>
 	</div>
@@ -66,7 +47,7 @@ body:before {
 			<div class="panel-heading">
 				<h2><span class="label label-default"> ${curUser.getFirstname()} ${curUser.getLastname()} </span></h2>
 				<br> 
-				<h3><span class="label label-success"> REIMBURSEMENTS HISTORY </span></h3>
+				<h1><span class="label label-success"> REIMBURSEMENTS HISTORY </span></h1>
 			</div>
 <!--****************************************************************Editable Table****************************************************************-->				
 			<div class="panel-body">
@@ -103,10 +84,10 @@ body:before {
 						<c:forEach items="${curRe}" var="re">
 							<tr>
 								<td>${re.r_id}</td>
-								<td>${re.r_amount}</td>
+								<td>${re.getR_amount_money()}</td>
 								<td>${re.r_description}</td>
-								<td>${re.r_submitted}</td>
-								<td>${re.r_resolved}</td>
+								<td>${re.getR_submitted_string()}</td>
+								<td>${re.getR_resolved_string()}</td>
 								<td>${re.uid_author}</td>
 								<td>${re.uid_resolver}</td>
 								<td>${re.r_type}</td>
@@ -154,6 +135,7 @@ body:before {
 $(document).ready(function() {
     var table = $('#reimbursementsTable').DataTable();
 } );
+
 </script>
 
 <script>
@@ -162,7 +144,6 @@ function openImage(number) {
     $('#imagemodal').modal('show');
 }
 </script>
-
 <script src="js/bootstrap.min.js"></script>
     
 </html>

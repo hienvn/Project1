@@ -15,32 +15,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
 
-<title>Manager View Reimbursements</title>
+<title>Manager - View All Reimbursements</title>
 
-<!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="css/background.css" rel="stylesheet" type="text/css">
 
 <script src="//code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
 </head>
-<style>
-body:before {
-	content: "";
-	position: absolute;
-	background:
-		url(http://s1.picswalls.com/wallpapers/2015/11/21/league-of-legends-hd-wallpapers_111242969_289.jpg);
-	background-size: cover;
-	z-index: -1; /* Keep the background behind the content */
-	height: 100%;
-	width: 100%; /* Using Glen Maddern's trick /via @mente */
-	/* don't forget to use the prefixes you need */
-	transform: scale(1);
-	transform-origin: top left;
-	overflow-y: scroll;
-	filter: blur(2px);
-}
-</style>
+
 <!--****************************************************************Body Pages****************************************************************-->
 <body>
 	<div class="container-fluid main-container">
@@ -52,7 +36,7 @@ body:before {
 			<li><a href="m_employees.jsp"><span class="glyphicon glyphicon-folder-open"></span> View Employee</a></li>
 			<li><a href="m_new_employee.jsp"><span class="glyphicon glyphicon-plus"></span> Register Employee</a></li>
 			<li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Tools</a></li>
-			<li><a href="/Project1/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+			<li><a href="/Project11/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 		</ul>
 		</nav>
 	</div>
@@ -61,7 +45,7 @@ body:before {
 			<div class="panel-heading">
 				<h2><span class="label label-default"> ${curUser.getFirstname()} ${curUser.getLastname()} </span></h2>
 				<br> 
-				<h3><span class="label label-success"> ALL REIMBURSEMENTS </span></h3>
+				<h1><span class="label label-success"> ALL REIMBURSEMENTS </span></h1>
 			</div>
 			
 <!--****************************************************************Editable Table****************************************************************-->				
@@ -101,22 +85,25 @@ body:before {
 						<c:forEach items="${curRe}" var="re">
 							<tr>
 								<td>${re.r_id}</td>
-								<td>${re.r_amount}</td>
+								<td>${re.getR_amount_money()}</td>
 								<td>${re.r_description}</td>
-								<td>${re.r_submitted}</td>
-								<td>${re.r_resolved}</td>
+								<td>${re.getR_submitted_string()}</td>
+								<td>${re.getR_resolved_string()}</td>
 								<td>${re.uid_author}</td>
 								<td>${re.uid_resolver}</td>
 								<td>${re.r_type}</td>
 								<td>${re.r_status}</td>
-								<td><a
-									href="data:image/jpeg;base64,${re.getR_receipt_string()}" target="_blank"><span
-										class="glyphicon glyphicon-picture"></span> View</a></td>
+								<td>
+									<a href="#" id="pop" onclick="openImage(${re.r_id}${re.r_id})">
+    								<img id=${re.r_id}${re.r_id} src="data:image/jpeg;base64,${re.getR_receipt_string()}" style="display:none">
+    								<span class="glyphicon glyphicon-picture"></span> View
+    								</a>
+								</td>
 								<td>
 									<div class="form-group">
-										<form id=${re.r_id } method="POST" action="update_re">		
-  											<select class="form-control" name=${re.r_id } onChange="update(${re.r_id})">
-												<option value="Default">${re.r_status}</option>
+										<form id=${re.r_id}>	
+  											<select class="form-control" name="selected" style="width:86px" onChange="update(${re.r_id},this)">
+												<option value="Default">Select</option>
 												<option value="Approve">Approve</option>
 												<option value="Deny">Deny</option>
 											</select>
@@ -127,15 +114,36 @@ body:before {
 						</c:forEach>
 					</tbody>
 					</table>
-					<div class="col-sm-offset-11">
-						<br>
-					</div>
-					<div class="col-sm-offset-11">
-						<button type="submit" class="btn btn-success" id="upload-button">Submit</button>
+					<br>
+					<div class=" pull-right">
+					<form id=commitall method="POST" action="commitallstatus">
+						<button type="submit" class="btn btn-success" id="upload-button" onclick="submitAll()">Submit</button>
+						<a href="cancelchange"><button type="button" class="btn btn-danger" id="upload-button">Cancel</button></a>
+					</form>	
+						
 					</div>
 			</div>
 		</div>
 	</div>
+	
+<!-- Creates the bootstrap modal where the image will appear -->
+<div class="modal fade" id="imagemodal" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"> Close </button>
+        <h4 class="modal-title" id="myModalLabel">View Receipt</h4>
+      </div>
+      <div class="modal-body" style="margin:auto; text-align: center;">
+        <img src="" id="imagepreview" style="width: 400px; height: 500px;" >
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>			
+	
 </body>
 
 
@@ -167,14 +175,37 @@ $(document).ready(function() {
 
 </script>
 
+<script>
+function openImage(number) {
+	document.getElementById("imagepreview").src=document.getElementById(number).src;
+    $('#imagemodal').modal('show');
+}
+</script>
 
 <script type="text/javascript">
 
-function update(id)
-{	
-	    var form = document.getElementById(id);
-	    form.submit();   
+function update(id,selectObj){
+	re_id = id;
+	var idx = selectObj.selectedIndex;
+	new_status = selectObj.options[idx].value;
+	updateaa();
 }
+function updateaa() {
+	$.ajax({
+		type : "POST",
+		url : "update_re",
+		data : {
+			"re_id" : re_id,
+			"newstatus" : new_status
+		},
+		success : function(result) {
+			document.getElementById(re_id).value = result;
+		}
+	});
+}
+
 </script>
+
+<script src="js/bootstrap.min.js"></script>
 
 </html>

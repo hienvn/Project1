@@ -6,7 +6,7 @@
 <head>
 <meta charset="utf-8">
 
-<title>Login Portal</title>
+<title>Login Page</title>
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/login.css" rel="stylesheet">
@@ -165,7 +165,6 @@ function login(){
 					"curEmail" : email
 				},
 				success : function(result) {
-					//alert("Hello! I am an alert box!");
 					if (result == 'done') {
 						document.getElementById("newpass").classList.remove("hide");
 						setTimeout(function (){document.getElementById("newpass").classList.add("hide")},2000);

@@ -1,7 +1,6 @@
 package com.revature.web;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,30 +10,23 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.revature.services.RequestHelper;
 
-@WebServlet("/master")
-public class MasterServlet extends HttpServlet {
-	static {
-		try {
-			Class.forName("oracle.jdbc.OracleDriver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-
+@WebServlet("/cancelchange")
+public class CancelUpdateServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("MasterServlet - POST");
+
+		System.out.println("CancelServlet - POST");
+
 		System.err.println("[LOG] Request sent to Front Controller");
-		String nextPage = new RequestHelper().processLogin(req, resp);
-		PrintWriter out = resp.getWriter();
-		resp.setContentType("text/html");
-		out.write(nextPage);
+		String nextPage = RequestHelper.cancelReimbursementChange(req, resp);
+		req.getRequestDispatcher(nextPage).forward(req, resp);
+
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("MasterServlet - GET");
-		req.getRequestDispatcher("login.jsp").forward(req, resp);
+		System.out.println("CancelServlet - GET");
+		doPost(req, resp);
+		// req.getRequestDispatcher("login.jsp").forward(req, resp);
 	}
-
 }

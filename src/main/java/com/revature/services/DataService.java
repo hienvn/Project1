@@ -13,10 +13,6 @@ import com.revature.database.ERS_DAO;
  */
 public class DataService {
 
-	public static String getStoredPassService(String uname) {
-		return new ERS_DAO().getStoredPass(uname);
-	}
-
 	public static String resetPassService(User u, String curUname, String curEmail) {
 		String tempPass = UUID.randomUUID().toString().substring(0, 8);
 		if (u == null) {
@@ -42,5 +38,24 @@ public class DataService {
 		}
 		return "done";
 	}
-
+	
+	
+	public static String createUserService(User u) {
+		if (new ERS_DAO().retrieveUserInfo(u.getUsername()) != null) {
+			return null;
+		}
+		new ERS_DAO().createNewUser(u);
+		try {
+			EmailService.generateAndSendEmail(u.getEmail(), "Congratulation, your account has been created successfully",
+					"<p/>Your username is: " + u.getUsername() + "<p/>Your temporary password is " + u.getPassword()
+							+ "<p/>Please change this temporary password after your first log in to the website. Thank You!!!");
+		} catch (AddressException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "m_employees.jsp";
+	}
 }

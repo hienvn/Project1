@@ -1,0 +1,13 @@
+@CHARSET "ISO-8859-1";
+
+
+body:before {
+	content: "";
+	position: absolute;
+	background: url(http://s1.picswalls.com/wallpapers/2015/11/21/league-of-legends-hd-wallpapers_111242969_289.jpg);
+	background-size: cover;
+	height: 100%;
+	width: 100%;
+	transform: scale(1);
+	filter: blur(2px);
+}

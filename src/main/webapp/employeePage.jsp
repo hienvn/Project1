@@ -14,69 +14,13 @@
 <head>
 <meta charset="utf-8">
 
-<title>Profile</title>
+<title>Employee - Home Page</title>
 
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/mainPage.css" rel="stylesheet" type="text/css">
 
 </head>
-<style>
-body:before {
-	content: "";
-	position: absolute;
-	background:
-		url(http://s1.picswalls.com/wallpapers/2015/11/21/league-of-legends-hd-wallpapers_111242969_289.jpg);
-	background-size: cover;
-	height: 100%;
-	width: 100%;
-	transform: scale(1);
-	filter: blur(2px);
-}
-.modal-header, h4, .close {   
-    text-align: center;
-    font-size: 28px;
-    font-family: "Comic Sans MS";
-    color: #fff;
-	text-shadow: 0 0 2px black;    
-	background: url(http://poppymountainbluegrass.com/wp-content/uploads/2016/08/Vintage-Grunge-Wood-Background.jpg)
- }
-.modal-body{
-	font-family: "Comic Sans MS";
-	background: url(http://olroyrecords.com/wp-content/uploads/2013/12/Wood_Background-1024x553.jpg);
-	color: #fff;
-	text-shadow: 0 0 5px black;
-	
-}
-.modal-footer {
-  	background: url(http://poppymountainbluegrass.com/wp-content/uploads/2016/08/Vintage-Grunge-Wood-Background.jpg)
-}
-h1 {
-	font-size: 32px;
-	color: #fff;
-	text-shadow: 10px 10px 10px black;
-	letter-spacing: 5px;
-}
-h2 {
-	font-size: 20px;
-	color: #fff;
-	text-shadow: 10px 10px 10px black;
-	letter-spacing: 1.5px;
-}
-.mytext {
-    width: 250px;
-    text-align: center;
-    align="middle";
-}
-label {
-    width:180px;
-    clear:left;
-    text-align:right;
-    padding-right:40px;
-}
-input, select, textarea{
-    color: brown;
-}
-</style>
 
 <!--****************************************************************Body Pages ****************************************************************-->
 <body>
@@ -87,15 +31,15 @@ input, select, textarea{
 			<li class="active"><a href="#" data-toggle="modal" data-target="#profileModal"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
 			<li><a href="e_reimbursements.jsp"><span class="glyphicon glyphicon-piggy-bank"></span> Current Reimbursement</a></li>
 			<li><a href="e_new_reimbursement.jsp"><span class="glyphicon glyphicon-usd"></span> New Reimbursement</a></li>
-			<li><a href="file:///C:/Users/HienNguyen13/Desktop/stress.exe"><span class="glyphicon glyphicon-pencil"></span> Tools</span></a>
-			<li><a href="/Project1/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+			<li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Tools</span></a>
+			<li><a href="/Project11/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 		</ul>
 		</nav>
 	</div>
 	<div class="col-md-12 content">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3><span class="label label-default"> Welcome, ${curUser.getFirstname()} ${curUser.getLastname()} </span></h3>
+				<h1><span class="label label-default"> Welcome, ${curUser.getFirstname()} ${curUser.getLastname()} </span></h1>
 			</div>
 			<div class="panel-body">
 			<div class="col-md-8 pull-left hide">
@@ -122,16 +66,14 @@ input, select, textarea{
 						src="https://lh6.googleusercontent.com/-O9QNVhPOCyk/AAAAAAAAAAI/AAAAAAAABUI/w4ADGr8iXyA/photo.jpg">
 				</div>
 				<div class="text-center">
-					<h1><b>${curUser.firstname} ${curUser.lastname}</b></h1>
-					<br>
-					<h2><b>ID:          ${curUser.user_id}</b></h2>
-					<h2><b>First Name:  ${curUser.firstname}</b></h2>
-					<h2><b>Last Name:   ${curUser.lastname}</b></h2>
-					<h2><b>Username:    ${curUser.username}</b></h2>
-					<h2><b>Password:    ${curUser.password}</b></h2>
-					<h2><b>Role:        ${curUser.role}</b></h2>
-					<h2><b>Email:       ${curUser.email}</b></h2>
-					<br>
+					<h1>${curUser.firstname} ${curUser.lastname}</h1><br>
+					<h2>ID: ${curUser.user_id}</h2> 
+					<h2>First Name: ${curUser.firstname}</h2>
+					<h2>Last Name: ${curUser.lastname}</h2>
+					<h2>Username: ${curUser.username}</h2>
+					<h2>Password: ${curUser.password}</h2>
+					<h2>Role: ${curUser.role}</h2> 
+					<h2>Email: ${curUser.email}</h2><br>
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -141,7 +83,7 @@ input, select, textarea{
 		</div>
 	</div>
 
-	<!--****************************************************************Edit Profile Modal****************************************************************-->
+<!--****************************************************************Edit Profile Modal****************************************************************-->
 	<div class="modal fade" id="editModal" role="dialog">
 		<div class="modal-dialog">
 			<form method="POST" action="updateuser">
@@ -159,24 +101,12 @@ input, select, textarea{
 					<div class="text-center">
 						<h1>${curUser.getFirstname()}${curUser.getLastname()}</h1>
 						<br>
-						<h2>
-							<label>First Name: </label><input type="text" class="mytext" id="fname" name="inputFname" placeholder=${curUser.firstname} required>
-						</h2>
-						<h2>
-							<label>Last Name: </label><input type="text" class="mytext" id="lname" name="inputLname" placeholder=${curUser.lastname} required>
-						</h2>
-						<h2>
-							<label>Username: </label><input type="text" readonly="readonly" class="mytext" id="uname" name="inputUname" placeholder=${curUser.username } required>
-						</h2>
-						<h2>
-							<label>Password: </label><input type="text" class="mytext" id="pass" name="inputPass" placeholder=${curUser.password} required>
-						</h2>
-						<h2>
-							<label>Role: </label><input type="text" readonly="readonly" class="mytext" id="role" name="inputRole" placeholder=${curUser.role } required>
-						</h2>
-						<h2>
-							<label>Email: </label><input type="text" class="mytext" id="email" name="inputEmail" placeholder=${curUser.email} required>
-						</h2>
+						<h2><label>First Name: </label><input type="text" class="mytext" id="fname" name="inputFname" placeholder=${curUser.firstname} required></h2>
+						<h2><label>Last Name: </label><input type="text" class="mytext" id="lname" name="inputLname" placeholder=${curUser.lastname} required></h2>
+						<h2><label>Username: </label><input type="text" readonly="readonly" class="mytext" id="uname" name="inputUname" placeholder=${curUser.username } required></h2>
+						<h2><label>Password: </label><input type="text" class="mytext" id="pass" name="inputPass" placeholder=${curUser.password} required></h2>
+						<h2><label>Role: </label><input type="text" readonly="readonly" class="mytext" id="role" name="inputRole" placeholder=${curUser.role } required></h2>
+						<h2><label>Email: </label><input type="text" class="mytext" id="email" name="inputEmail" placeholder=${curUser.email} required></h2>
 						<br>
 					</div>
 				</div>

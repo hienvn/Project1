@@ -14,69 +14,13 @@
 <head>
 <meta charset="utf-8">
 
-<title>Manager Home Page</title>
+<title>Manager - Home Page</title>
 
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/mainPage.css" rel="stylesheet" type="text/css">
 
 </head>
-<style>
-body:before {
-	content: "";
-	position: absolute;
-	background:
-		url(http://s1.picswalls.com/wallpapers/2015/11/21/league-of-legends-hd-wallpapers_111242969_289.jpg);
-	background-size: cover;
-	height: 100%;
-	width: 100%;
-	transform: scale(1);
-	filter: blur(2px);
-}
-.modal-header, h4, .close {   
-    text-align: center;
-    font-size: 28px;
-    font-family: "Comic Sans MS";
-    color: #fff;
-	text-shadow: 0 0 2px black;    
-	background: url(http://poppymountainbluegrass.com/wp-content/uploads/2016/08/Vintage-Grunge-Wood-Background.jpg)
- }
-.modal-body{
-	font-family: "Comic Sans MS";
-	background: url(http://olroyrecords.com/wp-content/uploads/2013/12/Wood_Background-1024x553.jpg);
-	color: #fff;
-	text-shadow: 0 0 5px black;
-	
-}
-.modal-footer {
-  	background: url(http://poppymountainbluegrass.com/wp-content/uploads/2016/08/Vintage-Grunge-Wood-Background.jpg)
-}
-h1 {
-	font-size: 24px;
-	color: #fff;
-	text-shadow: 10px 10px 10px black;
-	letter-spacing: 3px;
-}
-h2 {
-	font-size: 16px;
-	color: #fff;
-	text-shadow: 10px 10px 10px black;
-	letter-spacing: 1.5px;
-}
-.mytext {
-    width: 250px;
-    text-align: center;
-    align="middle";
-}
-label {
-    width:180px;
-    clear:left;
-    text-align:right;
-    padding-right:40px;
-}
-input, select, textarea{
-    color: brown;
-}
-</style>
 
 <!--****************************************************************Body Pages****************************************************************-->
 <body>
@@ -88,17 +32,17 @@ input, select, textarea{
 			<li><a href="m_reimbursements.jsp"><span class="glyphicon glyphicon-piggy-bank"></span> View Reimbursement</a></li>
 			<li><a href="m_employees.jsp"><span class="glyphicon glyphicon-folder-open"></span> View Employee</a></li>
 			<li><a href="m_new_employee.jsp"><span class="glyphicon glyphicon-plus"></span> Register Employee</a></li>
-			<li><a href="home.jsp"><span class="glyphicon glyphicon-pencil"></span> Tools</a></li>
-			<li><a href="/Project1/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+			<li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Tools</a></li>
+			<li><a href="/Project11/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 		</ul>
 		</nav>
 	</div>
 	<div class="col-md-12 content">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3>
+				<h1>
 					<span class="label label-default"> Welcome, ${curUser.getFirstname()}</span>
-				</h3>
+				</h1>
 			</div>
 			<div class="panel-body"></div>
 		</div>
