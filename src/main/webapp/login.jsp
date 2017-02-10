@@ -6,7 +6,7 @@
 <head>
 <meta charset="utf-8">
 
-<title>Login Page</title>
+<title>Reimbursement System Login</title>
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/login.css" rel="stylesheet">
@@ -79,7 +79,7 @@ body{
 					</div>
 					<div class="panel-body">
 						<div class="form-horizontal" role="form">
-							<div class="alert alert-success" id="newpass">
+							<div class="alert alert-success hide" id="newpass">
 								A new password will be send to your email address
 							</div>
 							<div class="alert alert-danger hide" id="wronginfo">

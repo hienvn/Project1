@@ -175,7 +175,7 @@ public class RequestHelper {
 		String password = req.getParameter("inputPass");
 		String firstname = req.getParameter("inputFname");
 		String lastname = req.getParameter("inputLname");
-		String email = req.getParameter("inputEmail");
+		String email = u.getEmail();
 		long role_id = u.getRole_id();
 		System.out.println(username + password + firstname + lastname + email + role_id);
 		u = new User(username, password, firstname, lastname, email, role_id);
