@@ -57,7 +57,7 @@
 							<th>Receipt</th>
 						</tr>
 						<tr>
-							<td><input type="text" class="form-control" name="amount"
+							<td><input type="number" class="form-control" name="amount"
 								id="inputAmount" placeholder="$0.00" required></td>
 							<td><input type="text" class="form-control" id="inputDesc"
 								name="desc" placeholder="reason" required></td>

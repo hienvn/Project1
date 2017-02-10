@@ -90,7 +90,7 @@
 								<td>${re.getR_submitted_string()}</td>
 								<td>${re.getR_resolved_string()}</td>
 								<td>${re.uid_author}</td>
-								<td>${re.uid_resolver}</td>
+								<td>${re.getUid_resolver_str()}</td>
 								<td>${re.r_type}</td>
 								<td>${re.r_status}</td>
 								<td>

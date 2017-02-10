@@ -74,7 +74,7 @@ public class RequestHelper {
 		System.err.println("[LOG] Processing request with helper : " + req.getRequestURI());
 		HttpSession session = req.getSession();
 		User u = (User) session.getAttribute("curUser");
-		long r_amount = 0;
+		double r_amount = 0;
 		String r_description = null;
 		byte[] r_receipt = null;
 		long uid_author = u.getUser_id();
@@ -92,7 +92,7 @@ public class RequestHelper {
 						String value = item.getString();
 						System.out.println(name + " " + value);
 						if (name.equals("amount"))
-							r_amount = Long.parseLong(value);
+							r_amount = Double.parseDouble(value);
 						if (name.equals("desc"))
 							r_description = value;
 						if (name.equals("type"))
@@ -105,7 +105,7 @@ public class RequestHelper {
 		} else {
 			System.err.println("New Reimbursement Upload Failed");
 		}
-		Reimbursement re = new Reimbursement(r_amount, r_description, r_receipt, uid_author, r_type_id);
+		Reimbursement re = new Reimbursement(r_amount/100, r_description, r_receipt, uid_author, r_type_id);
 		new ERS_DAO().createNewReimbursement(re);
 		refreshPage(req, resp);
 		return "e_new_reimbursement.jsp";
@@ -159,7 +159,9 @@ public class RequestHelper {
 		String email = req.getParameter("email");
 		long role_id = Long.parseLong(req.getParameter("role"));
 		User u = new User(username, password, firstname, lastname, email, role_id);
+		System.out.println(u);
 		String result = DataService.createUserService(u);
+		System.out.println(result);
 		refreshPage(req, resp);
 		return result;
 	}

@@ -19,18 +19,10 @@ public class CreateUserServlet extends HttpServlet {
 		System.out.println("CreateUserServlet - POST");
 
 		String nextPage = new RequestHelper().createUser(req, resp);
-		if (nextPage != null)
-			req.getRequestDispatcher(nextPage).forward(req, resp);
-		else {
-			PrintWriter out = resp.getWriter();
-			resp.setContentType("text/html");
-			out.println("<script type=\"text/javascript\">");
-			out.println("alert('Your username has already been registered, please pick another one!!!');");
-			out.println("</script>");
-			req.getRequestDispatcher("new_employee.jsp").forward(req, resp);
-		}
-		// resp.getWriter().write("Your username has already been registered,
-		// please pick another one!!!");
+		System.out.println(nextPage);
+		PrintWriter out = resp.getWriter();
+		resp.setContentType("text/html");
+		out.write(nextPage);
 	}
 
 	@Override

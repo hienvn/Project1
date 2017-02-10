@@ -97,13 +97,13 @@
 					<h2><label>Last Name: </label><input type="text" class="mytext" id="lname"
 								name="inputLname" placeholder=${curUser.lastname} required></h2>
 					<h2><label>Username: </label><input type="text" readonly="readonly" class="mytext" id="uname"
-								name="inputUname" placeholder=${curUser.username} required></h2>
+								name="inputUname" placeholder=${curUser.username} required style="background-color:#663300;"></h2>
 					<h2><label>Password: </label><input type="text" class="mytext" id="pass"
 								name="inputPass" placeholder=${curUser.password} required></h2>
 					<h2><label>Role: </label><input type="text" readonly="readonly" class="mytext" id="role"
-								name="inputRole" placeholder=${curUser.role} required></h2> 
-					<h2><label>Email: </label><input type="text" class="mytext" id="email"
-								name="inputEmail" placeholder=${curUser.email} required></h2><br>
+								name="inputRole" placeholder=${curUser.role} required style="background-color:#663300;"></h2> 
+					<h2><label>Email: </label><input type="text" readonly="readonly" class="mytext" id="email"
+								name="inputEmail" placeholder=${curUser.email} required  style="background-color:#663300;"></h2><br>
 				</div>
 			</div>
 			<div class="modal-footer">

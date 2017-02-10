@@ -37,4 +37,6 @@ public interface DAO {
 
 	void deleteReimbursement(String uname);
 
+	User retrieveUserInfoByEmail(String email);
+
 }

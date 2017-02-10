@@ -48,8 +48,16 @@
 
 <!--****************************************************************Employees editable table****************************************************************-->
 			<div class="panel-body">
-				<form class="form-horizontal" role="form" method="POST"
-					action="newu">
+				
+					<div class="alert alert-success hide" id="created">
+						New employee created successfully
+					</div>
+					<div class="alert alert-danger hide" id="dupname">
+						Username already existed! Please choose another one
+					</div>
+					<div class="alert alert-danger hide" id="dupe">
+						Email address already existed! Please choose another one
+					</div>
 					<table class="table table-hover">
 						<tr>
 							<th>Username</th>
@@ -68,7 +76,7 @@
 								name="lname" placeholder="last name" required></td>
 							<td><input type="text" class="form-control" id="inputEmail"
 								name="email" placeholder="example@yahoo.com" required></td>
-							<td><select class="form-control" name=role>
+							<td><select class="form-control" name="role" id="roleId">
 									<option value="1">Employee</option>
 									<option value="2">Manager</option>
 								</select>
@@ -80,16 +88,48 @@
 									<button type="submit" class="btn btn-success"
 										id="upload-button">Submit</button>
 					</div>
-				</form>
+				
 			</div>
 		</div>
 	</div>
 </body>
 
+<script type="text/javascript">
+function newUser() {
+		var user = $('#inputUsername').val();
+		var fname = $('#inputFname').val();
+		var lname = $('#inputLname').val();
+		var email = $('#inputEmail').val();
+		var role = $('#roleId').val();
+		$.ajax({
+			type : "POST",
+			url : "newu",
+			data : {
+				"username" : user,
+				"fname" : fname,
+				"lname" : lname,
+				"email" : email,
+				"role" : role
+			},
+			success : function(result) {
+				if (result == 'dupUname') {
+					document.getElementById("dupname").classList.remove("hide");
+					setTimeout(function (){document.getElementById("dupname").classList.add("hide")},2000);
+				} else if (result == 'dupEmail') {
+					document.getElementById("dupe").classList.remove("hide");
+					setTimeout(function (){document.getElementById("dupe").classList.add("hide")},2000);
+				} else {
+					document.getElementById("created").classList.remove("hide");
+					setTimeout(function (){document.getElementById("created").classList.add("hide")},2000);
+				}
+			}
+		});
+	}
+document.getElementById("upload-button").addEventListener("click",
+		newUser, false);
+</script>
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.min.js"></script>
 
 </body>

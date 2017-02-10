@@ -11,7 +11,6 @@ public class Reimbursement {
 	private double r_amount;
 	private String r_description;
 	private byte[] r_receipt_byte;
-	//private Blob r_receipt_blob;
 	private String r_receipt_string;
 	private Timestamp r_submitted;
 	private Timestamp r_resolved;
@@ -22,20 +21,15 @@ public class Reimbursement {
 	private String r_type;
 	private String r_status;
 
-	public Reimbursement(long r_amount, String r_description, byte[] r_receipt_byte, long uid_author, long r_type_id) {
+	public Reimbursement(double r_amount, String r_description, byte[] r_receipt_byte, long uid_author, long r_type_id) {
 		super();
-		// this.r_id = r_id;
 		this.r_amount = r_amount;
 		this.r_description = r_description;
 		this.r_receipt_byte = r_receipt_byte;
 		this.r_submitted = new Timestamp((System.currentTimeMillis() / 1000) * 1000);
-		// this.r_resolved = new Timestamp(System.currentTimeMillis());
 		this.uid_author = uid_author;
-		// this.uid_resolver = 1005;
 		this.r_type_id = r_type_id;
 		this.r_status_id = 1;
-		// this.r_type = r_type;
-		// this.r_status = r_status;
 	}
 
 	public Reimbursement(long r_id, long uid_resolver, long r_status_id) {
@@ -101,14 +95,6 @@ public class Reimbursement {
 		this.r_receipt_byte = r_receipt_byte;
 	}
 
-//	public Blob getR_receipt_blob() {
-//		return r_receipt_blob;
-//	}
-//
-//	public void setR_receipt_blob(Blob r_receipt_blob) {
-//		this.r_receipt_blob = r_receipt_blob;
-//	}
-
 	public String getR_receipt_string() {
 		return this.r_receipt_string;
 	}
@@ -156,6 +142,12 @@ public class Reimbursement {
 
 	public long getUid_resolver() {
 		return uid_resolver;
+	}
+	public String getUid_resolver_str() {
+		if(uid_resolver == 0)
+			return "";
+		else
+			return uid_resolver+"";
 	}
 
 	public void setUid_resolver(long uid_resolver) {

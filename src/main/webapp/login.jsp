@@ -29,7 +29,6 @@ body{
 }
 </style>
 
-<style type="text/css">body, a:hover {cursor: url(http://cur.cursors-4u.net/cursors/cur-1/cur1.ani), url(http://cur.cursors-4u.net/cursors/cur-1/cur1.png), progress !important;}</style><a href="http://www.cursors-4u.com/cursor/2005/04/22/cur1-11.html" target="_blank" title="Electricity Lightning"><img src="http://cur.cursors-4u.net/cursor.png" border="0" alt="Electricity Lightning" style="position:absolute; top: 0px; right: 0px;" /></a>
 <body>
 	<div class="container">
 		<div class="row" id="login">
@@ -98,7 +97,7 @@ body{
 								<label for="curEmailAddress" class="col-sm-3 control-label">
 									Email Address</label>
 								<div class="col-sm-9">
-									<input type="password" class="form-control" name="curEmail"
+									<input type="text" class="form-control" name="curEmail"
 										id="emailaddr" placeholder="example@yahoo.com" required>
 								</div>
 							</div>
@@ -147,8 +146,8 @@ function login(){
 			success : function(result) {
 				if (result == 'failed') {
 					document.getElementById("error").classList.remove("hide");
+					setTimeout(function (){document.getElementById("error").classList.add("hide")},2000);
 				} else {
-					document.getElementById("error").classList.add("hide");
 					window.location.href = result;
 				}
 			}

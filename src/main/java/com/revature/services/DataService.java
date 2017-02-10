@@ -38,8 +38,12 @@ public class DataService {
 	
 	//Helping method to insert new user into the db and send email to notify the new username and password
 	public static String createUserService(User u) {
-		if (new ERS_DAO().retrieveUserInfo(u.getUsername()) != null) {
-			return null;
+		ERS_DAO dao = new ERS_DAO();
+		if (dao.retrieveUserInfo(u.getUsername()) != null) {
+			return "dupUname";
+		}
+		if (dao.retrieveUserInfoByEmail(u.getEmail()) != null) {
+			return "dupEmail";
 		}
 		new ERS_DAO().createNewUser(u);
 		try {
@@ -51,6 +55,6 @@ public class DataService {
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
-		return "m_employees.jsp";
+		return "m_new_employees.jsp";
 	}
 }

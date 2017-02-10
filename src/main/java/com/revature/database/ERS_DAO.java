@@ -13,8 +13,8 @@ import com.revature.beans.User;
 
 public class ERS_DAO implements DAO {
 
-	private final static String url = "jdbc:oracle:thin:@hien1701java.c5xsr9dthznr.us-east-1.rds.amazonaws.com:1521:orcl";
-	private final static String username = "hien_1701java";
+	private final static String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	private final static String username = "PROJECT_1";
 	private final static String password = "p4ssw0rd";
 	
 	//Get all information of the user who logged in, search by username
@@ -56,6 +56,26 @@ public class ERS_DAO implements DAO {
 		}
 		return null;
 	}
+	
+	//Get all information of the user who logged in, search by user email
+		@Override
+		public User retrieveUserInfoByEmail(String email) {
+			try (Connection con = DriverManager.getConnection(url, username, password);) {
+				User u = null;
+				String sql = "SELECT * FROM ers_users eu JOIN ers_user_roles eur ON eu.ur_id = eur.ur_id WHERE eu.u_email = ?";
+				PreparedStatement ps = con.prepareStatement(sql);
+				ps.setString(1, email);
+				ResultSet rs = ps.executeQuery();
+				while (rs.next()) {
+					u = new User(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+							rs.getString(6), rs.getLong(7), rs.getString(9));
+				}
+				return u;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
 
 	//Get email address of the reimbursement's author to send new status email
 	@Override
@@ -112,7 +132,7 @@ public class ERS_DAO implements DAO {
 				byte[] imgData = null;
 				if (rs.getBlob("r_receipt") != null)
 					imgData = rs.getBlob("r_receipt").getBytes(1, (int) (rs.getBlob("r_receipt")).length());
-				r = new Reimbursement(rs.getLong("r_id"), rs.getLong("r_amount"), rs.getString("r_description"),
+				r = new Reimbursement(rs.getLong("r_id"), rs.getDouble("r_amount"), rs.getString("r_description"),
 						imgData, rs.getTimestamp("r_submitted"), rs.getTimestamp("r_resolved"),
 						rs.getLong("u_id_author"), rs.getLong("u_id_resolver"), rs.getLong("rt_type_id"),
 						rs.getLong("rs_status_id"), rs.getString("rt_type"), rs.getString("rs_status"));
@@ -141,7 +161,7 @@ public class ERS_DAO implements DAO {
 				byte[] imgData = null;
 				if (rs.getBlob("r_receipt") != null)
 					imgData = rs.getBlob("r_receipt").getBytes(1, (int) (rs.getBlob("r_receipt")).length());
-				r = new Reimbursement(rs.getLong("r_id"), rs.getLong("r_amount"), rs.getString("r_description"),
+				r = new Reimbursement(rs.getLong("r_id"), rs.getDouble("r_amount"), rs.getString("r_description"),
 						imgData, rs.getTimestamp("r_submitted"), rs.getTimestamp("r_resolved"),
 						rs.getLong("u_id_author"), rs.getLong("u_id_resolver"), rs.getLong("rt_type_id"),
 						rs.getLong("rs_status_id"), rs.getString("rt_type"), rs.getString("rs_status"));
