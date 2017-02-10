@@ -1,13 +1,14 @@
-body { 
-  background: url("../images/background.jpg") no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+body{
+	position: absolute;
+	background:
+		url(http://www.viennashares.org/wp-content/uploads/2015/09/Paper-currency-07-1280x720.jpg);
+	background-size: cover;
 }
 
 .panel-default {
-opacity: 0.9;
-margin-top:30px;
+	margin-top: 60px;
 }
-.form-group.last { margin-bottom:0px; }
+
+.form-group.last {
+	margin-bottom: 0px;
+}

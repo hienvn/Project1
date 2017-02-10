@@ -31,25 +31,18 @@
 			<li class="active"><a href="#" data-toggle="modal" data-target="#profileModal"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
 			<li><a href="e_reimbursements.jsp"><span class="glyphicon glyphicon-piggy-bank"></span> Current Reimbursement</a></li>
 			<li><a href="e_new_reimbursement.jsp"><span class="glyphicon glyphicon-usd"></span> New Reimbursement</a></li>
-			<li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Tools</span></a>
+			<li><a href="#" onCLick="game()"><span class="glyphicon glyphicon-pencil"></span> Tools</span></a>
 			<li><a href="/Project11/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 		</ul>
 		</nav>
 	</div>
 	<div class="col-md-12 content">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h1><span class="label label-default"> Welcome, ${curUser.getFirstname()} ${curUser.getLastname()} </span></h1>
-			</div>
-			<div class="panel-body">
-			<div class="col-md-8 pull-left hide">
+	<h1><span class="label label-default"><i><font color="#D8D8D8">Welcome, employee </font></i> ${curUser.getFirstname()}</span></h1>
+		
+			<div class="col-md-8 pull-left hide" id="playGame">
 				<center><object type="application/x-shockwave-flash" data="http://cdn.ebaumsworld.com/flash/kcbigmack/pc.swf" width="600" height="450" id="flashObject" style="visibility: visible;"><param name="wmode" value="opaque"><param name="menu" value="false"><param name="swliveconnect" value="true"><param name="allowscriptaccess" value="always"></object></center>
 			</div>
-			<div class="col-md-4 pull-right">
-				<script type="text/javascript" src="http://100widgets.com/js_data.php?id=234"></script>
-			</div>
-			</div>
-		</div>
+		
 	</div>
 
 <!--****************************************************************Profile Modal****************************************************************-->
@@ -120,29 +113,15 @@
 	</div>
 </body>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<script type="text/javascript">
+function game(){
+	document.getElementById("playGame").classList.remove("hide");
+	//document.getElementById("playGame").classList.add("hide");
+}
+</script>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 </body>
 </html>

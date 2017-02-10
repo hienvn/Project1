@@ -62,7 +62,8 @@ public class Reimbursement {
 		this.r_status_id = r_status_id;
 		this.r_type = r_type;
 		this.r_status = r_status;
-		this.r_receipt_string = new String(Base64.getEncoder().encode(r_receipt_byte));
+		if(r_receipt_byte!=null)
+			this.r_receipt_string = new String(Base64.getEncoder().encode(r_receipt_byte));
 	}
 
 	public long getR_id() {

@@ -16,7 +16,7 @@
 body{
 	position: absolute;
 	background:
-		url(http://s1.picswalls.com/wallpapers/2015/11/21/league-of-legends-hd-wallpapers_111242969_289.jpg);
+		url(http://missionsprings.net/wp-content/uploads/2016/06/Huge-Backgrounds-26.jpg);
 	background-size: cover;
 }
 
@@ -80,7 +80,7 @@ body{
 					</div>
 					<div class="panel-body">
 						<div class="form-horizontal" role="form">
-							<div class="alert alert-danger hide" id="newpass">
+							<div class="alert alert-success" id="newpass">
 								A new password will be send to your email address
 							</div>
 							<div class="alert alert-danger hide" id="wronginfo">

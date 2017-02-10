@@ -17,6 +17,7 @@ public class ERS_DAO implements DAO {
 	private final static String username = "hien_1701java";
 	private final static String password = "p4ssw0rd";
 	
+	//Get all information of the user who logged in, search by username
 	@Override
 	public User retrieveUserInfo(String uname) {
 		try (Connection con = DriverManager.getConnection(url, username, password);) {
@@ -35,7 +36,8 @@ public class ERS_DAO implements DAO {
 		}
 		return null;
 	}
-
+	
+	//Get all information of the user who logged in, search by user ID
 	@Override
 	public User retrieveUserInfo(int uid) {
 		try (Connection con = DriverManager.getConnection(url, username, password);) {
@@ -55,6 +57,7 @@ public class ERS_DAO implements DAO {
 		return null;
 	}
 
+	//Get email address of the reimbursement's author to send new status email
 	@Override
 	public String retrieveEmailInfo(long reID) {
 		try (Connection con = DriverManager.getConnection(url, username, password);) {
@@ -72,7 +75,8 @@ public class ERS_DAO implements DAO {
 		}
 		return null;
 	}
-
+	
+	//Get all users that are employee
 	@Override
 	public List<User> getAllEmployee() {
 		try (Connection con = DriverManager.getConnection(url, username, password);) {
@@ -92,7 +96,8 @@ public class ERS_DAO implements DAO {
 		}
 		return null;
 	}
-
+	
+	//Get the list of all reimbursement requests
 	@Override
 	public List<Reimbursement> getAllReimbursements() {
 		try (Connection con = DriverManager.getConnection(url, username, password);) {
@@ -119,35 +124,8 @@ public class ERS_DAO implements DAO {
 		}
 		return null;
 	}
-
-	@Override
-	public List<Reimbursement> getReimbursementsByStatus(long status) {
-		try (Connection con = DriverManager.getConnection(url, username, password);) {
-			Reimbursement r = null;
-			List<Reimbursement> reimbursementList = new ArrayList<>();
-			String sql = "SELECT * FROM ers_reimbursements er JOIN ers_reimbursement_status ers ON er.rs_status_id = ers.rs_id "
-					+ "JOIN ers_reimbursement_type ert ON er.rt_type_id = ert.rt_id WHERE er.rs_status_id = ?";
-
-			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setLong(1, status);
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				byte[] imgData = null;
-				if (rs.getBlob("r_receipt") != null)
-					imgData = rs.getBlob("r_receipt").getBytes(1, (int) (rs.getBlob("r_receipt")).length());
-				r = new Reimbursement(rs.getLong("r_id"), rs.getLong("r_amount"), rs.getString("r_description"),
-						imgData, rs.getTimestamp("r_submitted"), rs.getTimestamp("r_resolved"),
-						rs.getLong("u_id_author"), rs.getLong("u_id_resolver"), rs.getLong("rt_type_id"),
-						rs.getLong("rs_status_id"), rs.getString("rt_type"), rs.getString("rs_status"));
-				reimbursementList.add(r);
-			}
-			return reimbursementList;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
+	
+	//Get the list of all reimbursement requests of one employee
 	@Override
 	public List<Reimbursement> getReimbursementsByEmployee(User u) {
 		try (Connection con = DriverManager.getConnection(url, username, password);) {
@@ -176,35 +154,7 @@ public class ERS_DAO implements DAO {
 		return null;
 	}
 
-	@Override
-	public List<Reimbursement> getReimbursementsByEmployeeAndStatus(User u, String status) {
-		try (Connection con = DriverManager.getConnection(url, username, password);) {
-			Reimbursement r = null;
-			List<Reimbursement> reimbursementList = new ArrayList<>();
-			String sql = "SELECT * FROM ers_reimbursements er JOIN ers_reimbursement_status ers ON er.rs_status_id = ers.rs_id "
-					+ "JOIN ers_reimbursement_type ert ON er.rt_type_id = ert.rt_id WHERE er.u_id_author = ? AND ers.rs_status = ?";
-
-			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setLong(1, u.getUser_id());
-			ps.setString(2, status);
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				byte[] imgData = null;
-				if (rs.getBlob("r_receipt") != null)
-					imgData = rs.getBlob("r_receipt").getBytes(1, (int) (rs.getBlob("r_receipt")).length());
-				r = new Reimbursement(rs.getLong("r_id"), rs.getLong("r_amount"), rs.getString("r_description"),
-						imgData, rs.getTimestamp("r_submitted"), rs.getTimestamp("r_resolved"),
-						rs.getLong("u_id_author"), rs.getLong("u_id_resolver"), rs.getLong("rt_type_id"),
-						rs.getLong("rs_status_id"), rs.getString("rt_type"), rs.getString("rs_status"));
-				reimbursementList.add(r);
-			}
-			return reimbursementList;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
+	//Get stored user password out of db to compare when a user try to log in
 	@Override
 	public String getStoredPass(String uname) {
 		String result = null;
@@ -221,7 +171,26 @@ public class ERS_DAO implements DAO {
 		}
 		return result;
 	}
+	
+	//Get the user id ( User Id is auto-generated when create new employee)
+	@Override
+	public long getUserID(String uname) {
+		long result = 0;
 
+		try (Connection con = DriverManager.getConnection(url, username, password);) {
+			String sql = "SELECT u_id FROM ers_users WHERE u_username = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, uname);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next())
+				result = rs.getLong(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	//Manager can insert new employee with random password
 	@Override
 	public void insertNewEmployee(User u) {
 		try (Connection con = DriverManager.getConnection(url, username, password);) {
@@ -237,7 +206,8 @@ public class ERS_DAO implements DAO {
 			e.printStackTrace();
 		}
 	}
-
+	
+	//To create any user
 	@Override
 	public void createNewUser(User u) {
 		try (Connection con = DriverManager.getConnection(url, username, password);) {
@@ -254,7 +224,8 @@ public class ERS_DAO implements DAO {
 			e.printStackTrace();
 		}
 	}
-
+	
+	//Users can update they profile
 	@Override
 	public void updateUser(User u) {
 		try (Connection con = DriverManager.getConnection(url, username, password);) {
@@ -271,7 +242,8 @@ public class ERS_DAO implements DAO {
 			e.printStackTrace();
 		}
 	}
-
+	
+	//Employee create new reimbursement requests
 	@Override
 	public void createNewReimbursement(Reimbursement r) {
 		try (Connection con = DriverManager.getConnection(url, username, password);) {
@@ -289,7 +261,8 @@ public class ERS_DAO implements DAO {
 			e.printStackTrace();
 		}
 	}
-
+	
+	//Manager change statuses for one of more reimbursements
 	@Override
 	public void updateReimbursement(Reimbursement r) {
 		try (Connection con = DriverManager.getConnection(url, username, password);) {
@@ -300,6 +273,36 @@ public class ERS_DAO implements DAO {
 			ps.setLong(3, r.getUid_resolver());
 			ps.setLong(4, r.getR_status_id());
 			ps.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//Delete any user by username
+	@Override
+	public void deleteUser(String uname) {
+
+		try (Connection con = DriverManager.getConnection(url, username, password);) {
+			String sql = "DELETE FROM ers_users WHERE u_username = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, uname);
+			ResultSet rs = ps.executeQuery();
+			//con.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//Delete all reimbursement records belong to one username
+	@Override
+	public void deleteReimbursement(String uname) {
+		long uid = new ERS_DAO().getUserID(uname);
+		try (Connection con = DriverManager.getConnection(url, username, password);) {
+			String sql = "DELETE FROM ers_reimbursements WHERE u_id_author = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setLong(1, uid);
+			ResultSet rs = ps.executeQuery();
+			//con.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

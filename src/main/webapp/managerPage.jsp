@@ -38,14 +38,9 @@
 		</nav>
 	</div>
 	<div class="col-md-12 content">
-		<div class="panel panel-default">
-			<div class="panel-heading">
 				<h1>
-					<span class="label label-default"> Welcome, ${curUser.getFirstname()}</span>
+					<span class="label label-default"><i><font color="#D8D8D8">Welcome, manager </font></i> ${curUser.getFirstname()}</span>
 				</h1>
-			</div>
-			<div class="panel-body"></div>
-		</div>
 	</div>
 	
 <!--****************************************************************Profile Modal****************************************************************-->

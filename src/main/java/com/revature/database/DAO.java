@@ -15,11 +15,7 @@ public interface DAO {
 
 	List<Reimbursement> getAllReimbursements();
 
-	List<Reimbursement> getReimbursementsByStatus(long status);
-
 	List<Reimbursement> getReimbursementsByEmployee(User u);
-
-	List<Reimbursement> getReimbursementsByEmployeeAndStatus(User u, String status);
 
 	String getStoredPass(String uname);
 
@@ -34,5 +30,11 @@ public interface DAO {
 	void createNewUser(User u);
 
 	String retrieveEmailInfo(long reID);
+
+	void deleteUser(String uname);
+
+	long getUserID(String uname);
+
+	void deleteReimbursement(String uname);
 
 }
